@@ -3,7 +3,13 @@ import Image from "next/image";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { useEffect } from "react";
+import Web3InitService from "../services/web3initService";
 const Home: NextPage = () => {
+
+	useEffect(() => {
+		Web3InitService.init();
+	}, [])
 
 	return (
 		<div className={styles.container}>
