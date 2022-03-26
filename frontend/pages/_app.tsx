@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import 'bootstrap/dist/css/bootstrap.css';
 import type { AppProps } from "next/app";
 import LoaderContextProvider from "../contexts/loaderContext";
 import AuthContextProvider, { AuthContext } from "../contexts/authContext";

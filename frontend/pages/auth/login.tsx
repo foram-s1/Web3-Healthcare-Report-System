@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import LoginForm from "../../components/loginComponent";
-import 'bootstrap/dist/css/bootstrap.css';
+import { AuthContext } from "../../contexts/authContext";
 import RegisterForm from "../../components/registerComponent";
 
 export default function Login() {
