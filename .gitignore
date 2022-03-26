@@ -1,0 +1,9 @@
+# ignore environment file
+smarty/
+
+# ignore model file
+.hdf5
+
+# ignore IDE specific setting file
+.idea/
+.vscode/
