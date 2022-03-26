@@ -3,8 +3,14 @@ import Image from "next/image";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { useContext, useState } from "react";
+import ConnectToMetamask from "../components/ConnectToMetamask";
+import { AuthContext } from "../contexts/authContext";
+import RegisterDialog from "../components/RegisterDialog";
 const Home: NextPage = () => {
-
+	const [openConnectToWalletDialog,setOpenConnectToWalletDialog] = useState(true);
+	const [openRegister,setOpenRegister] = useState(false);
+	const {user} = useContext(AuthContext);
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -90,6 +96,8 @@ const Home: NextPage = () => {
 					</span>
 				</a>
 			</footer>
+			<ConnectToMetamask open={openConnectToWalletDialog} close={() => setOpenConnectToWalletDialog(false)} />
+			<RegisterDialog open={openRegister} close={() => setOpenRegister(false)} />
 		</div>
 	);
 };
