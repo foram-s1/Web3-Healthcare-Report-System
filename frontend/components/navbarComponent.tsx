@@ -18,7 +18,7 @@ export default function Navbar(props: any) {
         {/* {user.logged && */}
         <nav className="navbar sticky-top justify-content-right rounded-5 navbar-expand-lg navbar-light swatch_2">
             <div className="container-fluid">
-                    <h1 className="navbar-brand ms-5" >Laboratory</h1>
+                    <h1 className="navbar-brand ms-5" >Laboratary</h1>
                 <div className="justify-content-end ">
                      
                 <span className="me-2 text-bold">
