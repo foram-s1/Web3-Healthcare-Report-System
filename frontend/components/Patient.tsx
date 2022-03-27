@@ -1,10 +1,21 @@
 import { Accordion, Button, AccordionSummary, AccordionDetails, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {ExpandMoreOutlined} from '@material-ui/icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowUp, faImage, faUpload } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../contexts/authContext";
+import BackendService from "../services/backendService";
 
 export default function Patient(){
+    const {user} = useContext(AuthContext);
+    const [reports, setReports] = useState([]);
+    useEffect(() =>{
+        BackendService.getAllReportsByPatient(user.provider, user.user.wallet).then(res => {
+            console.log(res);
+        }).catch(err => {
+            toast.error("Error fetching reports");
+        })
+    },[])
     return (
         <div className="w-100 pt-4 swatch_3" style={{minHeight: "100vh"}}>
             <div className="col-lg-10 col-md-11 col-12 mx-auto py-2 px-3 mt-4 mb-3 rounded bg-light" style={{minHeight: "500px"}}>

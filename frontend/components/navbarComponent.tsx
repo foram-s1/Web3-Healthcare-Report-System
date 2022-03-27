@@ -20,7 +20,7 @@ export default function Navbar(props: any) {
             <div className="container-fluid ">
                 <div className="navbar-brand ms-4 d-flex align-items-center">
                     <FontAwesomeIcon icon={faHouseChimneyMedical} size="lg" />
-                    <h4 className="fnt fw-bold ms-2 mb-0 ">Laboratory</h4>
+                    <h4 className="fnt fw-bold ms-2 mb-0 ">{"SRS"}</h4>
                 </div>
                 <div className="d-flex align-items-center">
                      

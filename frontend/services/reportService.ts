@@ -7,7 +7,7 @@ export default class ReportService {
 	public static async createReport(provider: Web3, report: any) {
 		let reportContract = new provider.eth.Contract(
 			mastereContract.abi,
-			"0xCcEC671c7F457B43389Dc656eb326B7F5AdC042C"
+			"0x48a6C71a3a505077Da45c91DA5dFe286d389898b"
 		);
 
 		return reportContract.methods
@@ -20,8 +20,9 @@ export default class ReportService {
 			)
 			.send({ from: (await provider.eth.getAccounts())[0] })
 			.then((res: any) => {
-				return res.events.ReportCreated.returnValues.reportAddress;
-			}).catch((err: any) => {
+				return res.events.ReportCreated.returnValue;
+			})
+			.catch((err: any) => {
 				console.log(err);
 				return null;
 			});
@@ -32,18 +33,27 @@ export default class ReportService {
 		reportAddress: string,
 		signature: string,
 		analysis: string,
-		diagnosis: string
+		diagnosis: string,
+		originalImage: string,
+		maskedImage: string
 	) {
 		let reportContract = new provider.eth.Contract(
 			report.abi,
 			reportAddress
 		);
 
-		signature = new TextDecoder().decode(await ed.sign(`${reportAddress}${analysis}${diagnosis}`, signature));
+		signature = new TextDecoder().decode(
+			await ed.sign(
+				`${reportAddress}${originalImage}${maskedImage}${analysis}${diagnosis}`,
+				signature
+			)
+		);
 
-		reportContract.methods.setData(analysis, diagnosis, signature).send({
-			from: (await provider.eth.getAccounts())[0],
-		});
+		return reportContract.methods
+			.setData(analysis, diagnosis, signature)
+			.send({
+				from: (await provider.eth.getAccounts())[0],
+			});
 	}
 
 	private static async getOneField(
@@ -83,8 +93,9 @@ export default class ReportService {
 
 		return Promise.all(promises).then((values) => {
 			let reportData: any = {};
+			reportData["contract"] = reportAddress;
 			values.forEach((value) => {
-				reportData[value.field] = value.data;
+				reportData[value.field.slice(3)] = value.data;
 			});
 			return reportData;
 		});
