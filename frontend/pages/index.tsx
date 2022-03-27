@@ -118,6 +118,7 @@ const Home: NextPage = () => {
 				close={() => setOpenRegister(false)}
 			/>
 		</div>
+		</div>
 	);
 };
 
