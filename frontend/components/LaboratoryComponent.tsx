@@ -26,8 +26,8 @@ export default function Laboratory(props: any) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-auto">
-                        <button type="submit" className="btn swatch_6b rounded-pill">Submit</button>
+                    <div className="col-auto mx-auto">
+                        <button type="submit" className="btn btn-primary mx-auto swatch_6b rounded-pill">Submit</button>
                     </div>
                 </div>
             </form>

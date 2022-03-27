@@ -14,7 +14,7 @@ export default class AuthService {
 	}
 
 	public static async login() {
-		Web3InitService.init();
+		return Web3InitService.init();
 	}
 
 	public static async userData() {

@@ -4,9 +4,11 @@ import type { AppProps } from "next/app";
 import LoaderContextProvider from "../contexts/loaderContext";
 import AuthContextProvider, { AuthContext } from "../contexts/authContext";
 import LoaderComponent from "../components/loaderComponent";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import Script from "next/script";
+import { userInfo } from "os";
+import ConnectToMetamask from "../components/ConnectToMetamask";
 
 function AuthIntialize() {
 	const { user, checkStatus } = useContext(AuthContext);
@@ -28,6 +30,7 @@ function AuthIntialize() {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+	
 	return (
 		<AuthContextProvider>
 			<AuthIntialize />
@@ -44,6 +47,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 				
 				<LoaderComponent />
 				<Component {...pageProps} />
+				<ConnectToMetamask />
 				<Script>
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossOrigin="anonymous"></script>
 

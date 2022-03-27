@@ -5,6 +5,7 @@ export const AuthContext = createContext({
 	user: { logged: false, user: {}, provider: null },
 	login: () => {},
 	checkStatus: () => {},
+	logout: () => {},
 });
 
 export default function AuthContextProvider(props: any) {
@@ -21,6 +22,10 @@ export default function AuthContextProvider(props: any) {
 		setUser({ logged: provider !== false, user, provider });
 	};
 
+	const logout = async () => {
+		setUser({ logged: false, user: {}, provider: null });
+	}	
+
 	const checkStatus = async () => {
 		const provider = await AuthService.getProvider();
 		const user = await AuthService.userData();
@@ -28,7 +33,7 @@ export default function AuthContextProvider(props: any) {
 	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, checkStatus }}>
+		<AuthContext.Provider value={{ user, login, checkStatus, logout }}>
 			{props.children}
 		</AuthContext.Provider>
 	);
