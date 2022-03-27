@@ -6,10 +6,24 @@ import LoaderContextProvider from "../contexts/loaderContext";
 import AuthContextProvider, { AuthContext } from "../contexts/authContext";
 import LoaderComponent from "../components/loaderComponent";
 import { useContext, useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Head from "next/head";
 import Script from "next/script";
 import { userInfo } from "os";
 import ConnectToMetamask from "../components/ConnectToMetamask";
+
+toast.configure({
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 5000,
+    hideProgressBar: false,
+    newestOnTop: false,
+    closeOnClick: true,
+    rtl: false,
+    pauseOnFocusLoss: false,
+    draggable: false,
+    pauseOnHover: false,
+  });
 
 function AuthIntialize() {
 	const { user, checkStatus } = useContext(AuthContext);

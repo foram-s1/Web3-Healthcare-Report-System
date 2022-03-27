@@ -60,7 +60,7 @@ export default class BackendService {
 					return AxiosService.post("/uploadReport", {
 						contract: res,
 						patient: report.userAddress,
-						hospital: report.doctorAddress,
+						hospital: report.hospitalAddress,
 					})
 						.then((res) => {
 							console.log(res);

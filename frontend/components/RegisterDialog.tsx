@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle, MenuItem, Select, TextField } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { LoaderContext } from "../contexts/loaderContext";
 import BackendService from "../services/backendService";
 
 export default function RegisterDialog(props: any) {
@@ -8,6 +9,7 @@ export default function RegisterDialog(props: any) {
         type:  "patient"
     })
     const [user,setUser] = useState(props.user);
+    const {startLoading,stopLoading} = useContext(LoaderContext);
     useEffect(async () => {
         let address = "";
         if(props.user.provider) address = await props.user.provider.eth.getAccounts().then((res: any) => res[0])
@@ -15,8 +17,10 @@ export default function RegisterDialog(props: any) {
     },[props.user])
     let handleRegister = (e:any) => {
         e.preventDefault();
+        startLoading();
         BackendService.registerUser(userDetails.name, userDetails.type, props.user.provider).then((res:any) => {
             console.log(res)
+            stopLoading();
         })
 
     }
