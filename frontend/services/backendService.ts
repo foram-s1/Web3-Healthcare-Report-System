@@ -134,4 +134,28 @@ export default class BackendService {
 				return false;
 			});
 	}
+
+	public static async signAndUpdateReport(
+		provider: Web3,
+		report: any,
+		file: any
+	) {
+		let fileReader = new FileReader();
+		fileReader.readAsText(file);
+		fileReader.onload = async () => {
+			let key = fileReader.result?.toString();
+			if(!key) {
+				return false;
+			}
+			return ReportService.signReport(
+				provider,
+				report.contract,
+				key,
+				report.analysis,
+				report.diagnosis,
+				report.originalImage,
+				report.maskedImage
+			)
+		}
+	}
 }
