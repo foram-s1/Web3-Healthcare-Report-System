@@ -19,7 +19,7 @@ export default function Patient(){
     return (
         <div className="w-100 pt-4 swatch_3" style={{minHeight: "100vh"}}>
             <div className="col-lg-10 col-md-11 col-12 mx-auto py-2 px-3 mt-4 mb-3 rounded bg-light" style={{minHeight: "500px"}}>
-                <h1 className="mb-3 swatch_6 text-center">Your Reports</h1>
+                <h1 className="mb-3 swatch_6 fnt fw-bold text-center">Your Reports</h1>
                 <div className="d-flex flex-column mx-auto" style={{rowGap: "0.5rem"}}>
                     <Accordion>
                         <AccordionSummary expandIcon={<ExpandMoreOutlined />}>1</AccordionSummary>

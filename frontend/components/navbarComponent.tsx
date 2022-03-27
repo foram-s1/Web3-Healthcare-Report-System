@@ -33,6 +33,5 @@ export default function Navbar(props: any) {
                 </div>
             </div>
         </nav>
-        {/* } */}
     </div>
 }

@@ -48,7 +48,6 @@ const Home: NextPage = () => {
 			{user.logged && user.user!==null && user.user!=={} && 
 			<>
 			<Navbar/>
-
 			{user.user.user_type === "laboratary" && <Laboratory/>}
 			{user.user.user_type === "hospital" && <Hospital/>}
 			{user.user.user_type === "patient" && <Patient/>}
@@ -64,10 +63,10 @@ const Home: NextPage = () => {
 			</div> */}
 			{/* <Laboratory	 /> */}
 			
-			<ConnectToMetamask
+			{/* <ConnectToMetamask
 				open={openConnectToWalletDialog}
 				close={() => setOpenConnectToWalletDialog(false)}
-			/>
+			/> */}
 			<RegisterDialog
 				open={openRegister}
 				user={user}
