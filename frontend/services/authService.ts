@@ -1,74 +1,37 @@
+import Web3 from "web3";
 import AxiosService from "../utils/axiosHelper";
+import Web3InitService from "./web3initService";
 
 export default class AuthService {
-	public static getToken() {
-		return window.localStorage.getItem("token");
-	}
-
-	public static getStatus() {
-		const token = this.getToken();
-		if (token && token !== "") {
-			var payload: any = token.split(".")[1];
-			payload = JSON.parse(window.atob(payload));
-			// if (payload.exp < Date.now()) {
-            //     this.logout();
-            //     return false;
-			// }
-            return payload;
+	
+	public static async getStatus() {
+		let provider: any = Web3InitService.checkLogin();
+		if (provider === false) {
+			return false;
+		} else {
+			return true;
 		}
-		return false;
 	}
 
-	private static setToken(token: string) {
-		return window.localStorage.setItem("token", token);
+	public static async login() {
+		Web3InitService.init();
 	}
 
-	public static logout() {
-		return window.localStorage.removeItem("token");
+	public static async userData() {
+		return {
+			name: "John Doe",
+			email: "jhon@email.com",
+			address: "0x1234567890123456789012345678901234567890",
+			type: "Lab",
+		}
 	}
 
-	public static async login(email: string, password: string) {
-		if (this.getStatus() == false)
-			return AxiosService.post("/user/login", {
-				email,
-				password,
-			})
-				.then((res) => {
-					if (res.data.token) this.setToken(res.data.token);
-					return res.data;
-				})
-				.catch((err) => {
-					if (err.response) return err.response.data;
-					else {
-						return {
-							success: false,
-							message: "Something went wrong !! ",
-						};
-					}
-				});
-		else
-			return {
-				success: true,
-			};
-	}
-
-	public static async list() {
-		return AxiosService.get("/user/", {
-			headers: {
-				Authorization: this.getToken(),
-			},
-		})
-			.then((res) => {
-				return res.data;
-			})
-			.catch((err) => {
-				if (err.response) return err.response.data;
-				else {
-					return {
-						success: false,
-						message: "Something went wrong !! ",
-					};
-				}
-			});
+	public static async getProvider() {
+		let provider: any = Web3InitService.checkLogin();
+		if (provider === false) {
+			return false;
+		} else {
+			return provider;
+		}
 	}
 }
