@@ -95,16 +95,19 @@ a {
     background: #fe9d89;
 }
 .swatch_3{
-    background: #bed8de;
+	background: #bed8de;
 }
 .swatch_6{
-    color: #31327a;
+	color: #31327a;
 }
 .swatch_6b{
 	background-color: #31327a !important;
 }
 .swatch_7{
-    background: #f2573d;
+	background: #f2573d;
+}
+.swatch_7b{
+	color: #f2573d ;
 }
 .swatch_8{
 	background: rgb(108, 99, 255);

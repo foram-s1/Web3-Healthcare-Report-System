@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 	const [openConnectToWalletDialog, setOpenConnectToWalletDialog] =
 		useState(false);
 	const { user, login } = useContext(AuthContext);
-	const [openRegister, setOpenRegister] = useState(false);
+	const [openRegister, setOpenRegister] = useState(true);
 
 	useEffect(() => {
 		if(!user.logged){
@@ -32,10 +32,10 @@ const Home: NextPage = () => {
 			{user.logged && 
 			<>
 			<Navbar/>
-			{/* <Patient /> */}
+			<Patient />
 			{/* <Laboratory /> */}
 
-			<Hospital />
+			{/* <Hospital /> */}
 			
 			</>
 			}
@@ -44,10 +44,10 @@ const Home: NextPage = () => {
 			</div> */}
 			{/* <Laboratory	 /> */}
 			
-			<ConnectToMetamask
+			{/* <ConnectToMetamask
 				open={openConnectToWalletDialog}
 				close={() => setOpenConnectToWalletDialog(false)}
-			/>
+			/> */}
 			<RegisterDialog
 				open={openRegister}
 				close={() => setOpenRegister(false)}
