@@ -32,10 +32,10 @@ const Home: NextPage = () => {
 			{user.logged && 
 			<>
 			<Navbar/>
-			<Patient />
+			{/* <Patient /> */}
 			{/* <Laboratory /> */}
 
-			{/* <Hospital /> */}
+			<Hospital />
 			
 			</>
 			}

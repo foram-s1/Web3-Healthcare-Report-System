@@ -3,7 +3,6 @@ import AxiosService from "../utils/axiosHelper";
 import Web3InitService from "./web3initService";
 
 export default class AuthService {
-	
 	public static async getStatus() {
 		let provider: any = Web3InitService.checkLogin();
 		if (provider === false) {
@@ -18,12 +17,16 @@ export default class AuthService {
 	}
 
 	public static async userData() {
-		return {
-			name: "John Doe",
-			email: "jhon@email.com",
-			address: "0x1234567890123456789012345678901234567890",
-			type: "Lab",
-		}
+		return AxiosService.get(
+			"/getUser/" + (await this.getProvider()).eth.getAccounts()[0]
+		)
+			.then((res) => {
+				return res.data;
+			})
+			.catch((err) => {
+				console.log(err);
+				return null;
+			});
 	}
 
 	public static async getProvider() {
