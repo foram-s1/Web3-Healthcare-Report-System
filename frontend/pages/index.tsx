@@ -33,9 +33,9 @@ const Home: NextPage = () => {
 			<>
 			<Navbar/>
 			{/* <Patient /> */}
-			<Laboratory />
+			{/* <Laboratory /> */}
 
-			{/* <Hospital /> */}
+			<Hospital />
 			
 			</>
 			}
