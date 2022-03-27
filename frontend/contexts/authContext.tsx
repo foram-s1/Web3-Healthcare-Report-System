@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import AuthService from "../services/authService";
 
 export const AuthContext = createContext({
-	user: { logged: false, user: {}, provider: null },
+	user: { loading: true, logged: false, user: {}, provider: null },
 	login: () => {},
 	checkStatus: () => {},
 	logout: () => {},
@@ -10,6 +10,7 @@ export const AuthContext = createContext({
 
 export default function AuthContextProvider(props: any) {
 	const [user, setUser] = useState({
+		loading: true, 
 		logged: false,
 		user: {},
 		provider: null,
@@ -19,17 +20,17 @@ export default function AuthContextProvider(props: any) {
 		await AuthService.login();
 		const provider = await AuthService.getProvider();
 		const user = await AuthService.userData();
-		setUser({ logged: provider !== false, user, provider });
+		setUser({ loading: false, logged: provider !== false, user, provider });
 	};
 
 	const logout = async () => {
-		setUser({ logged: false, user: {}, provider: null });
+		setUser({ loading: false, logged: false, user: {}, provider: null });
 	}	
 
 	const checkStatus = async () => {
 		const provider = await AuthService.getProvider();
 		const user = await AuthService.userData();
-		setUser({ logged: provider !== false, user, provider });
+		setUser({ loading: false, logged: provider !== false, user, provider });
 	};
 
 	return (

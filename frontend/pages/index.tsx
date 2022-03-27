@@ -12,24 +12,40 @@ import ConnectToMetamask from "../components/ConnectToMetamask";
 import RegisterDialog from "../components/RegisterDialog";
 import Hospital from "../components/Hospital";
 import Patient from "../components/Patient";
+import { LoaderContext } from "../contexts/loaderContext";
 const Home: NextPage = () => {
 	const [openConnectToWalletDialog, setOpenConnectToWalletDialog] =
 		useState(false);
 	const { user, login } = useContext(AuthContext);
-	const [openRegister, setOpenRegister] = useState(true);
+	const {startLoading, stopLoading} = useContext(LoaderContext)
+	const [openRegister, setOpenRegister] = useState(false);
 
 	useEffect(() => {
-		if(!user.logged){
-			setOpenConnectToWalletDialog(true);
+		if(user.loading){
+			startLoading();
 		}else{
-			setOpenConnectToWalletDialog(false);
+			stopLoading();
+			if(!user.logged){
+				setOpenConnectToWalletDialog(true);
+			}else{
+				setOpenConnectToWalletDialog(false);
+				console.log(user);
+				if(user.user === null || user.user === {}){
+					setOpenRegister(true);
+				}else{
+					setOpenRegister(false);
+				}
+			}
 		}
+		
 	},[user])
 
 	return (
 	
 		<div >
-			{user.logged && 
+			{!user.loading && <>
+			{console.log(user)}
+			{user.logged && user.user!==null && user.user!=={} && 
 			<>
 			<Navbar/>
 			<Patient />
@@ -50,8 +66,10 @@ const Home: NextPage = () => {
 			/> */}
 			<RegisterDialog
 				open={openRegister}
+				user={user}
 				close={() => setOpenRegister(false)}
 			/>
+			</>}
 		</div>
 	);
 };

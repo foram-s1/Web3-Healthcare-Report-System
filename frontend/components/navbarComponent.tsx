@@ -26,7 +26,7 @@ export default function Navbar(props: any) {
                      
                     <span className="d-flex me-2 fnt fw-bold align-items-center fs-6 swatch_2b rounded-pill p-1">
                         <FontAwesomeIcon icon={faUser} className="p-2 me-2 swatch_6 swatch_2bIn rounded-circle "/>
-                        {`${user.user.name} ${user.user.address.slice(0,5)}...`}
+                        {`${user.user.full_name} ${user.user.wallet.slice(0,5)}...`}
                     </span>
                     
                     <FontAwesomeIcon icon={faRightFromBracket} size="xl" type="button" onClick={logout} className="ms-3 me-5"/>
