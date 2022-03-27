@@ -3,13 +3,10 @@ import Image from "next/image";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { useEffect } from "react";
-import Web3InitService from "../services/web3initService";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../contexts/authContext";
 const Home: NextPage = () => {
-
-	useEffect(() => {
-		Web3InitService.init();
-	}, [])
+	const { user, login } = useContext(AuthContext);
 
 	return (
 		<div className={styles.container}>
@@ -31,6 +28,9 @@ const Home: NextPage = () => {
 					height={1920}
 					width={1080}
 				></Image>
+
+				{user.logged ? "" : <button onClick={login}>Login</button>}
+
 				<p className={styles.description}>
 					Get started by editing{" "}
 					<code className={styles.code}>pages/index.tsx</code>
@@ -40,9 +40,7 @@ const Home: NextPage = () => {
 					<Link href="/auth">
 						<a className={styles.card}>
 							<h2>Authenticated Route &rarr;</h2>
-							<p>
-								This route is authenticated.
-							</p>
+							<p>This route is authenticated.</p>
 						</a>
 					</Link>
 
@@ -50,7 +48,8 @@ const Home: NextPage = () => {
 						<a className={styles.card}>
 							<h2>Login Page &rarr;</h2>
 							<p>
-								This route is the place where you can go and authenticate yourself.
+								This route is the place where you can go and
+								authenticate yourself.
 							</p>
 						</a>
 					</Link>

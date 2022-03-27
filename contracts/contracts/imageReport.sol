@@ -12,6 +12,7 @@ contract ImageReport {
     string analysis;
     string diagnosis;
     string reportType;
+	string signature;
 
     constructor(address _user, address _doctor, string memory _reportType, string memory _originalImage, string memory _maskedImage) {
         isOwner[_user] = true;
@@ -41,10 +42,11 @@ contract ImageReport {
         isDoctor[_doctor] = true;
     }
 
-    function setData(string memory _analysis, string memory _diagnosis) public onlyOwner onlyDoctor {
+    function setData(string memory _analysis, string memory _diagnosis, string memory _signature) public onlyOwner onlyDoctor {
         require(isEditable, "The report is no longer editable");
         analysis = _analysis;
         diagnosis = _diagnosis;
+		signature = _signature;
         isEditable = false;
     }
 
@@ -63,5 +65,13 @@ contract ImageReport {
     function getMaskedImage() public view onlyOwner returns (string memory) {
         return maskedImage;
     }
+
+	function getReportType() public view onlyOwner returns (string memory) {
+		return reportType;
+	}
+
+	function getSignature() public view onlyOwner returns (string memory) {
+		return signature;
+	}
 
 }
