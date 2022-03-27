@@ -5,20 +5,22 @@ import * as ed from "@noble/ed25519";
 
 export default class ReportService {
 	public static async createReport(provider: Web3, report: any) {
+
 		let reportContract = new provider.eth.Contract(
 			mastereContract.abi,
 			"0x48a6C71a3a505077Da45c91DA5dFe286d389898b"
 		);
-
+		let address = await provider.eth.getAccounts();
+		console.log(address, report);
 		return reportContract.methods
 			.createImageReport(
-				report.userAddress,
-				report.doctorAddress,
+				report.patientAddress,
+				report.hospitalAddress,
 				report.reportType,
 				report.originalImage,
 				report.maskedImage
 			)
-			.send({ from: (await provider.eth.getAccounts())[0] })
+			.send({ from: `${address[0]}` })
 			.then((res: any) => {
 				return res.events.ReportCreated.returnValue;
 			})

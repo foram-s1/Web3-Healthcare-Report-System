@@ -48,10 +48,9 @@ const Home: NextPage = () => {
 			{user.logged && user.user!==null && user.user!=={} && 
 			<>
 			<Navbar/>
-			{/* <Patient /> */}
-			{/* <Laboratory /> */}
-
-			<Hospital />
+			{user.logged && user.user.user_type === "patient" && <Patient />}
+			{user.logged && user.user.user_type === "laboratary" && <Laboratory />}
+			{user.logged && user.user.user_type === "hospital" && <Hospital />}
 			
 			</>
 			}
