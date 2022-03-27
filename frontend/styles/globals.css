@@ -90,3 +90,21 @@ a {
 		box-shadow: 0 2.5em 0 0;
 	}
 }
+.swatch_2{
+    background: #fe9d89;
+}
+.swatch_3{
+    background: #bed8de;
+}
+.swatch_6{
+    color: #31327a;
+}
+.swatch_6b{
+	background-color: #31327a;
+}
+.swatch_7{
+    background: #f2573d;
+}
+.swatch_8{
+	background: rgb(108, 99, 255);
+}
