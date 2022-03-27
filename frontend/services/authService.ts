@@ -17,8 +17,10 @@ export default class AuthService {
 	}
 
 	public static async userData() {
+		let provider: any = await this.getProvider();
+		if(provider === false) return null;
 		return AxiosService.get(
-			"/getUser/" + (await this.getProvider()).eth.getAccounts()[0]
+			"/getUser/" + (await provider.eth.getAccounts())[0]
 		)
 			.then((res) => {
 				return res.data;

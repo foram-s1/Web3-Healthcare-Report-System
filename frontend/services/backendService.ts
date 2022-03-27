@@ -1,6 +1,7 @@
 import * as ed from "@noble/ed25519";
 import Web3 from "web3";
 import AxiosService from "../utils/axiosHelper";
+import AuthService from "./authService";
 import ReportService from "./reportService";
 
 export default class BackendService {
@@ -11,13 +12,13 @@ export default class BackendService {
 	) {
 		let publicKey = "";
 		if (user_type === "hospital") {
-			const privateKey = new TextDecoder().decode(
-				ed.utils.randomPrivateKey()
-			);
-			publicKey = new TextDecoder().decode(
+			let privateKey: any = ed.utils.randomPrivateKey();
+			publicKey = await new TextDecoder().decode(
 				await ed.getPublicKey(privateKey)
 			);
-
+			privateKey = new TextDecoder().decode(
+				privateKey
+			);
 			var ele = document.createElement("a");
 			ele.setAttribute(
 				"href",
@@ -40,6 +41,7 @@ export default class BackendService {
 			wallet: (await provider.eth.getAccounts())[0],
 		}).then((res) => {
 			console.log(res);
+			AuthService.getStatus();
 		});
 	}
 
