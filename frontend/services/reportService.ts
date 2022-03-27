@@ -22,6 +22,7 @@ export default class ReportService {
 			)
 			.send({ from: `${address[0]}` })
 			.then((res: any) => {
+				console.log(res);
 				return res.events.ReportCreated.returnValue;
 			})
 			.catch((err: any) => {
