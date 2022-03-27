@@ -1,10 +1,22 @@
 import { Accordion, Button, AccordionSummary, AccordionDetails, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {ExpandMoreOutlined} from '@material-ui/icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileArrowUp, faImage, faUpload } from "@fortawesome/free-solid-svg-icons";
+import BackendService from "../services/backendService";
+import { AuthContext } from "../contexts/authContext";
+import { toast } from "react-toastify";
 
 export default function Hospital(){
+    const {user} = useContext(AuthContext);
+    const [reports, setReports] = useState([]);
+    useEffect(() =>{
+        BackendService.getAllReportsByHospital(user.provider, user.user.wallet).then(res => {
+            console.log(res);
+        }).catch(err => {
+            toast.error("Error fetching reports");
+        })
+    },[])
     let handleSign = (e:any) => {
         e.preventDefault();
     }
