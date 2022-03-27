@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Asap:ital@1&display=swap');
 
 html,
 body {
@@ -100,11 +101,20 @@ a {
     color: #31327a;
 }
 .swatch_6b{
-	background-color: #31327a;
+	background-color: #31327a !important;
 }
 .swatch_7{
     background: #f2573d;
 }
 .swatch_8{
 	background: rgb(108, 99, 255);
+}
+.swatch_2b	 {
+	background-color: hsl(17deg 100% 97% / 32%);
+}
+.swatch_2bIn	 {
+	background-color: hsl(17deg 100% 97% / 32%);
+}
+.fnt{
+	font-family: 'Asap', sans-serif;
 }

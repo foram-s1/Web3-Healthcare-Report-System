@@ -32,8 +32,8 @@ const Home: NextPage = () => {
 			{user.logged && 
 			<>
 			<Navbar/>
-			<Patient />
-			{/* <Laboratory /> */}
+			{/* <Patient /> */}
+			<Laboratory />
 
 			{/* <Hospital /> */}
 			
