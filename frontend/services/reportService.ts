@@ -10,7 +10,7 @@ export default class ReportService {
 			"0xCcEC671c7F457B43389Dc656eb326B7F5AdC042C"
 		);
 
-		reportContract.methods
+		return reportContract.methods
 			.createImageReport(
 				report.userAddress,
 				report.doctorAddress,
@@ -19,7 +19,12 @@ export default class ReportService {
 				report.maskedImage
 			)
 			.send({ from: (await provider.eth.getAccounts())[0] })
-			.then(console.log);
+			.then((res: any) => {
+				return res.events.ReportCreated.returnValues.reportAddress;
+			}).catch((err: any) => {
+				console.log(err);
+				return null;
+			});
 	}
 
 	public static async signReport(
