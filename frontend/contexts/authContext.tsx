@@ -1,38 +1,34 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import AuthService from "../services/authService";
 
-export const AuthContext = createContext({user: {logged: false, user: {}}, login: (email: string, password: string) => {}, logout: () => {}, checkStatus: () => {}});
+export const AuthContext = createContext({
+	user: { logged: false, user: {}, provider: null },
+	login: () => {},
+	checkStatus: () => {},
+});
 
 export default function AuthContextProvider(props: any) {
-	const [user, setUser] = useState({ logged: false, user: {} });
+	const [user, setUser] = useState({
+		logged: false,
+		user: {},
+		provider: null,
+	});
 
-	const login = async (email: string, password: string) => {
-		return AuthService.login(email, password).then((res) => {
-			if (res.success) {
-				setUser({ logged: true, user: AuthService.getStatus() });
-			} else {
-				setUser({ logged: false, user: {} });
-			}
-			return res;
-		});
-	};
-
-	const logout = async () => {
-		setUser({ logged: false, user: {} });
-		return AuthService.logout();
+	const login = async () => {
+		await AuthService.login();
+		const provider = await AuthService.getProvider();
+		const user = await AuthService.userData();
+		setUser({ logged: provider !== false, user, provider });
 	};
 
 	const checkStatus = async () => {
-		let payload = AuthService.getStatus();
-		if (payload && payload != false) {
-			setUser({ logged: true, user: payload });
-		} else {
-			setUser({ logged: false, user: {} });
-		}
-	}
+		const provider = await AuthService.getProvider();
+		const user = await AuthService.userData();
+		setUser({ logged: provider !== false, user, provider });
+	};
 
 	return (
-		<AuthContext.Provider value={{ user, login, logout, checkStatus }}>
+		<AuthContext.Provider value={{ user, login, checkStatus }}>
 			{props.children}
 		</AuthContext.Provider>
 	);

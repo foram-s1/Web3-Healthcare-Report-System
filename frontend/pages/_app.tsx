@@ -8,13 +8,21 @@ import Head from "next/head";
 import Script from "next/script";
 
 function AuthIntialize() {
-	
-	const { checkStatus } = useContext(AuthContext);
+	const { user, checkStatus } = useContext(AuthContext);
 
 	useEffect(() => {
 		checkStatus();
 	}, []);
-	
+
+	useEffect(() => {
+		if (user.logged) {
+			console.log("User is logged in");
+		} else {
+			console.log("User is not logged in");
+		}
+		console.log(user);
+	}, [user]);
+
 	return <></>;
 }
 
