@@ -100,6 +100,7 @@ async def uploadMRI(file: UploadFile=File(...)):
 @app.post("/uploadReport",response_description="Upload Brain MRI and create objects",response_model=Reports)
 async def createReports(reports:Reports = Body(...)):
     data = jsonable_encoder(reports)
+    print(data)
     report = await reports_collection.insert_one(data)
     report = await reports_collection.find_one({"_id": report.inserted_id})
     return report
