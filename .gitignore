@@ -1,1 +1,15 @@
+<<<<<<< HEAD
 node_modules
+=======
+# ignore environment file
+smarty/
+data/
+
+# ignore model file
+.hdf5
+.env
+
+# ignore IDE specific setting file
+.idea/
+.vscode/
+>>>>>>> dhruv
