@@ -47,6 +47,7 @@ export default class Web3InitService {
 			alert("You must download Metamask to use this application");
 		}
 		console.log(web3);
+		window.web3 = web3;
 		return web3;
 	}
 

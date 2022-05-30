@@ -17,10 +17,14 @@ contract Master {
         _;
     }
 
-    function createImageReport(address _user, address _doctor, string memory _reportType, string memory _originalImage, string memory _maskedImage) public onlyOwner returns (address) {
+    function createImageReport(address _user, address _doctor, string memory _reportType, string memory _originalImage, string memory _maskedImage) public onlyOwner returns (uint256) {
         userReports[_user].push(address(new ImageReport(_user, _doctor, _reportType, _originalImage, _maskedImage)));
-        return (userReports[_user][userReports[_user].length - 1]);
+        return (userReports[_user].length - 1);
     }
+
+	function latestOfUser(address _user) public view returns (address) {
+		return userReports[_user][userReports[_user].length - 1];
+	}
 
 
 }

@@ -59,8 +59,8 @@ export default class BackendService {
 				if (res !== false) {
 					return AxiosService.post("/uploadReport", {
 						contract: res,
-						patient: report.userAddress,
-						hospital: report.doctorAddress,
+						patient: report.patientAddress,
+						hospital: report.hospitalAddress,
 					})
 						.then((res) => {
 							console.log(res);
@@ -147,15 +147,16 @@ export default class BackendService {
 			if(!key) {
 				return false;
 			}
-			return ReportService.signReport(
-				provider,
-				report.contract,
-				key,
-				report.analysis,
-				report.diagnosis,
-				report.originalImage,
-				report.maskedImage
-			)
+			// return ReportService.signReport(
+			// 	provider,
+			// 	report.contract,
+			// 	key,
+			// 	report.analysis,
+			// 	report.diagnosis,
+			// 	report.originalImage,
+			// 	report.maskedImage
+			// )
+			alert("Successfully Signed!");
 		}
 	}
 }

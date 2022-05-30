@@ -9,8 +9,8 @@ export default function Laboratory(props: any) {
     const {user} = useContext(AuthContext);
     const {startLoading, stopLoading} = useContext(LoaderContext);
     const [reportDetails,setReportDetails] = useState({
-        hospitalAddress: "0xcFbB22612C4Dc6B0CABEe8c6Bbc60EdC07e77C98",
-        patientAddress: "0xdCdFae782d8429A75C345ac4C920e8dc605afD80",
+        hospitalAddress: "0x126AD44266468215F6646319631F54f11545836a",
+        patientAddress: "0x941DF3560d058E5AcdbD87F7642Fa36de4243a6C",
         reportType: "brainMRI",
         file: null,
     })

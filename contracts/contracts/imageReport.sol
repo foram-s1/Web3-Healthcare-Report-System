@@ -50,27 +50,27 @@ contract ImageReport {
         isEditable = false;
     }
 
-    function getAnalysis() public view onlyOwner returns (string memory) {
+    function getAnalysis() public view returns (string memory) {
         return analysis;
     }
 
-    function getDiagnosis() public view onlyOwner returns (string memory) {
+    function getDiagnosis() public view returns (string memory) {
         return diagnosis;
     }
 
-    function getOriginalImage() public view onlyOwner returns (string memory) {
+    function getOriginalImage() public view returns (string memory) {
         return originalImage;
     }
 
-    function getMaskedImage() public view onlyOwner returns (string memory) {
+    function getMaskedImage() public view returns (string memory) {
         return maskedImage;
     }
 
-	function getReportType() public view onlyOwner returns (string memory) {
+	function getReportType() public view returns (string memory) {
 		return reportType;
 	}
 
-	function getSignature() public view onlyOwner returns (string memory) {
+	function getSignature() public view returns (string memory) {
 		return signature;
 	}
 

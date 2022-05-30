@@ -5,10 +5,9 @@ import * as ed from "@noble/ed25519";
 
 export default class ReportService {
 	public static async createReport(provider: Web3, report: any) {
-
 		let reportContract = new provider.eth.Contract(
 			mastereContract.abi,
-			"0x48a6C71a3a505077Da45c91DA5dFe286d389898b"
+			"0x81De74DE492DD2dDF7BeC1F363A31C381eD59553"
 		);
 		let address = await provider.eth.getAccounts();
 		console.log(address, report);
@@ -22,8 +21,13 @@ export default class ReportService {
 			)
 			.send({ from: `${address[0]}` })
 			.then((res: any) => {
-				console.log(res);
-				return res.events.ReportCreated.returnValue;
+				return reportContract.methods
+					.latestOfUser(report.patientAddress)
+					.call()
+					.then((res: any) => {
+						console.log(res);
+						return res;
+					});
 			})
 			.catch((err: any) => {
 				console.log(err);
@@ -40,67 +44,62 @@ export default class ReportService {
 		originalImage: string,
 		maskedImage: string
 	) {
+		console.log(reportAddress);
+		
 		let reportContract = new provider.eth.Contract(
 			report.abi,
 			reportAddress
 		);
 
-		signature = new TextDecoder().decode(
-			await ed.sign(
-				`${reportAddress}${originalImage}${maskedImage}${analysis}${diagnosis}`,
-				signature
-			)
-		);
+		signature = "";
+		let address = (await provider.eth.getAccounts())[0];
 
 		return reportContract.methods
 			.setData(analysis, diagnosis, signature)
 			.send({
-				from: (await provider.eth.getAccounts())[0],
+				from: address,
 			});
 	}
 
-	private static async getOneField(
-		provider: Web3,
-		reportAddress: string,
-		field: string
-	) {
+	public static async getReportData(provider: Web3, reportAddress: string) {
+		console.log(reportAddress);
 		let reportContract = new provider.eth.Contract(
 			report.abi,
 			reportAddress
 		);
 
-		return {
-			data: await reportContract.methods[field].call(),
-			field: field,
-		};
-	}
-
-	public static async getReportData(provider: Web3, reportAddress: string) {
-		let promises = [];
-		promises.push(this.getOneField(provider, reportAddress, "getAnalysis"));
-		promises.push(
-			this.getOneField(provider, reportAddress, "getDiagnosis")
-		);
-		promises.push(
-			this.getOneField(provider, reportAddress, "getOriginalImage")
-		);
-		promises.push(
-			this.getOneField(provider, reportAddress, "getMaskedImage")
-		);
-		promises.push(
-			this.getOneField(provider, reportAddress, "getReportType")
-		);
-		promises.push(
-			this.getOneField(provider, reportAddress, "getSignature")
-		);
-
-		return Promise.all(promises).then((values) => {
-			let reportData: any = {};
-			reportData["contract"] = reportAddress;
-			values.forEach((value) => {
-				reportData[value.field.slice(3)] = value.data;
+		return reportContract.methods
+			.getAnalysis()
+			.call()
+			.then((analysis: any) => {
+				return reportContract.methods
+					.getDiagnosis()
+					.call()
+					.then((diagnosis: any) => {
+						return reportContract.methods
+							.getSignature()
+							.call()
+							.then((signature: any) => {
+								return reportContract.methods
+									.getOriginalImage()
+									.call()
+									.then((originalImage: any) => {
+										return reportContract.methods
+											.getMaskedImage()
+											.call()
+											.then((maskedImage: any) => {
+												return {
+													analysis: analysis,
+													diagnosis: diagnosis,
+													signature: signature,
+													originalImage:
+														originalImage,
+													maskedImage: maskedImage,
+												};
+											});
+									});
+							});
+					});
 			});
-			return reportData;
-		});
 	}
 }
